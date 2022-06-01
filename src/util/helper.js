@@ -6,7 +6,7 @@ const printDate = function printDate(){
 }
 
 
-const printMonth = function printDate(){
+const printMonth = function printMonth(){
     const month = new Date() ;
     const m = month.getMonth() + 1;
     console.log("Current Month : "+m);
