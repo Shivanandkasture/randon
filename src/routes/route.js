@@ -1,48 +1,40 @@
-const express = require('express');
+const express = require("express");
+
+const {filmes} = require('../routes/filmes')
+
 const router = express.Router();
 
-let players = [
-    {
-        "name" : "manish",
-        "dob" : "1/1//1995",
-        "gender" : "male",
-        "city" : "jamlandhar",
-        "sports" :[
-            "swimming"
-        ]
-        },
-        {
-            "name": "gopal",
-           "dob": "1/09/1995",
-           "gender": "male",
-           "city": "delhi",
-           "sports": [
-               "soccer"
-           ],
 
-        },
-        {
-            "name": "lokesh",
-            "dob": "1/1/1990",
-            "gender": "male",
-            "city": "mumbai",
-            "sports": [
-                "soccer"
-            ],
-        },
- 
-]
+// Movie API 
+router.get("/movies", (req, res) => {
+  const movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"];
+  res.send(movies.join(" , "));
+});
 
-router.post('/players', function(req,res){
-let data ={};
-    for(let i =0; i< players.length; i++){
-        if(players[i]!= players[i]){
-            return data =players[i];
-        }
-    }
+// single Movie API 
+router.get("/movies/:indexNumber", (req, res) => {
+  const movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"];
 
-    res.send({data : players, status: true})
+  if ( 0 > req.params.indexNumber ||  movies.length <= req.params.indexNumber) {
+    res.send("Please Enter vailde Index number ");
+  } else {
+    res.send(movies[req.params.indexNumber]);
+  }
+});
+
+// filmes API
+router.get('/films',(req,res)=>{
+res.send(filmes)
 })
 
-
+// single filems API
+router.get('/films/:filmId',(req,res)=>{
+  if ( 0 >= req.params.filmId ||  filmes.length < req.params.filmId) {
+    res.send("No movie exists with this id");
+  } else {
+    const filmeData = filmes.find(ele => ele.id === +req.params.filmId)
+    res.send(filmeData);
+  }
+})
 module.exports = router;
+// adding this comment for no reason
